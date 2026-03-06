@@ -6,4 +6,8 @@ Be opinionated in the technical stack choices (frontend, backend, and database),
 
 We will eventually expose the project using a Cloudflare Tunnel.
 
+**Note:** This development server runs on a local network machine. To access the app from your phone or other devices, ensure `docker-compose.yml` binds to `0.0.0.0` (not localhost), then open `http://bbox1.local:3000` on the same network. If mDNS/hostname resolution is unavailable on the device, use the server's local IP instead (e.g., `http://192.168.x.x:3000`).
+
 This project will serve as a benchmark for your abilities- do your best.
+
+When a logical amount of work is complete, create a commit with a clear, concise message.
