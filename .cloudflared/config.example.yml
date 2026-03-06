@@ -1,0 +1,22 @@
+# Cloudflare Tunnel Configuration Example
+# Copy this to ~/.cloudflare/config.yml and customize
+
+tunnel: myblog
+credentials-file: /path/to/.cloudflare/myblog.json
+
+ingress:
+  # Frontend
+  - hostname: yourdomain.com
+    service: http://localhost:3000
+
+  # API
+  - hostname: api.yourdomain.com
+    service: http://localhost:3001
+
+  # Catch-all
+  - service: http_status:404
+
+# TLS Configuration
+originRequest:
+  disableChunkedEncoding: false
+  http2Origin: false
