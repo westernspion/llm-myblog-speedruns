@@ -1,52 +1,32 @@
-# myblog
+# Bradley Savoy Blog
 
-AI agent benchmark: build a full-stack personal blog from a single prompt.
+Synthwave-inspired DevOps/SRE blog running fully local with Docker Compose.
 
-`AGENTS.md` defines the requirements. An AI coding agent reads the file and builds the entire project in one shot. Each attempt lives on its own branch -- a "speedrun."
+## Opinionated stack
 
-## Speedrun Rules
+- Frontend: Next.js 14 (App Router, React Server Components)
+- Backend: Next.js Route/Server layer with Node.js
+- Database: PostgreSQL 16
+- Runtime: Docker Compose for local parity
 
-1. **Always branch from the initial commit on `main`.**
+## Quick start
 
-   ```bash
-   git checkout main
-   git checkout -b <agent>-speedrun
-   ```
-
-2. **One branch per attempt.** Name it after the model or agent (e.g. `sonnet-4.6-speedrun`, `gpt-5.3codex-speedrun`).
-
-3. **Clean up between runs.** Speedrun branches leave behind generated files, build artifacts, Docker volumes, and other junk. Before starting a new run, reset the workspace:
+1. Start the app and database:
 
    ```bash
-   # switch back to main
-   git checkout main
-
-   # nuke untracked files and directories (including ignored ones)
-   git clean -fdx
-
-   # remove any leftover Docker resources from the previous run
-   docker compose down -v --remove-orphans 2>/dev/null
-   docker system prune -f 2>/dev/null
+   docker compose up --build
    ```
 
-4. **Let the agent commit.** The agent is instructed to commit at logical checkpoints. Don't intervene.
+2. Open:
 
-## Existing Speedruns
+   - Local machine: `http://localhost:3000`
+   - LAN devices: `http://bbox1.local:3000`
 
-| Branch | Agent |
-|---|---|
-| `sonnet-4.6-speedrun` | Claude Sonnet 4.6 |
-| `speedrun-opus-4.6` | Claude Opus 4.6 |
-| `haiku-4.5-speedrun` | Claude Haiku 4.5 |
-| `gpt-5.3codex-speedrun` | GPT-5.3 Codex |
+   If mDNS does not resolve, use your server local IP such as `http://192.168.x.x:3000`.
 
-## Running the Blog
+## Services
 
-Every speedrun produces a Docker Compose stack. To try one:
+- `app`: Next.js dev server bound to `0.0.0.0:3000`
+- `db`: PostgreSQL on `0.0.0.0:5432`
 
-```bash
-git checkout <branch>
-docker compose up --build
-```
-
-The app will be available at `http://localhost:3000`.
+Seed data is loaded from `sql/init.sql` on first database initialization.

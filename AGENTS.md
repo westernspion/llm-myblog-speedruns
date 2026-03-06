@@ -1,22 +1,17 @@
-Build a personal blog for a DevOps/SRE engineer.
+We are building a blog for Bradley Savoy, a DevOps/SRE engineer with 15 years of experience.
 
-## Design
+The site should feel professional while being synthwave-inspired, including subtle line-scan visual treatment.
 
-Professional aesthetic with synthwave inspiration, including subtle line-scan visual treatment.
+Be opinionated in the technical stack choices (frontend, backend, and database), with the requirement that everything runs locally via Docker Compose.
 
-## Tech Stack
+We will eventually expose the project using a Cloudflare Tunnel.
 
-Be opinionated in your choices for frontend, backend, and database. Everything must run locally via Docker Compose.
+**Note:** This development server runs on a local network machine. To access the app from your phone or other devices, ensure `docker-compose.yml` binds to `0.0.0.0` (not localhost), then open `http://bbox1.local:3000` on the same network. If mDNS/hostname resolution is unavailable on the device, use the server's local IP instead (e.g., `http://192.168.x.x:3000`).
 
-## Features
+This project will serve as a benchmark for your abilities- do your best.
 
-- **Admin system** -- Login, create/edit/delete posts, Markdown editor. When implemented, provide the admin URL and credentials in the output.
-- **Site statistics** -- Total visitors and unique visitors with reporting for overall traffic and configurable time spans. Detailed stats are admin-only; the overall visitor count is shown publicly at the bottom of the site.
-- **Activity logging** -- All site activity logged to the database for analytics and auditability.
-- **Sample content** -- Include a handful of sample blog posts so the site isn't empty on first launch.
+When a logical amount of work is complete, create a commit with a clear, concise message.
 
-## Workflow
+The blog must include an admin login and admin management experience for creating, editing, and deleting posts, with Markdown supported for writing content.
 
-- Before starting work, clean up unused files and temporary artifacts from the workspace.
-- When a logical amount of work is complete, create a commit with a clear, concise message.
-- This project serves as a benchmark for your abilities -- do your best.
+When admin functionality is implemented, the output must include the admin URL link and admin credentials.
