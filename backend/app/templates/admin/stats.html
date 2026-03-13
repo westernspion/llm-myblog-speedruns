@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - SRE Blog Admin{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-3xl font-heading font-black text-synthwave-magenta glow-text">Site Statistics</h1>
+        <a href="/admin" class="text-synthwave-cyan hover:text-synthwave-magenta">← Back to Dashboard</a>
+    </div>
+    
+    <div class="flex gap-2 mb-8">
+        <a href="/admin/stats?days=7" class="btn-neon text-sm {% if days == 7 %}ring-2 ring-synthwave-cyan{% endif %}">7 Days</a>
+        <a href="/admin/stats?days=30" class="btn-neon text-sm {% if days == 30 %}ring-2 ring-synthwave-cyan{% endif %}">30 Days</a>
+        <a href="/admin/stats?days=90" class="btn-neon text-sm {% if days == 90 %}ring-2 ring-synthwave-cyan{% endif %}">90 Days</a>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8 text-center">
+            <div class="text-5xl mb-4">👥</div>
+            <h2 class="text-xl font-heading text-synthwave-cyan mb-2">Unique Visitors</h2>
+            <p class="text-4xl font-heading text-synthwave-magenta glow-text">{{ unique_visitors }}</p>
+        </div>
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8 text-center">
+            <div class="text-5xl mb-4">📄</div>
+            <h2 class="text-xl font-heading text-synthwave-cyan mb-2">Page Views</h2>
+            <p class="text-4xl font-heading text-synthwave-orange glow-orange">{{ total_page_views }}</p>
+        </div>
+    </div>
+    
+    <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-6">
+        <h2 class="text-xl font-heading text-synthwave-cyan mb-4">Daily Breakdown</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Visitors</th>
+                    <th>Page Views</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in daily_stats %}
+                <tr>
+                    <td>{{ day.date }}</td>
+                    <td class="text-synthwave-cyan">{{ day.visitors }}</td>
+                    <td class="text-synthwave-orange">{{ day.page_views }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

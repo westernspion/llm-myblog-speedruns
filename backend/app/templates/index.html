@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}SRE Blog - Home{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-12">
+    <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-6xl font-heading font-black text-synthwave-magenta glow-text mb-4">
+            SRE<span class="text-synthwave-cyan">_</span>BLOG
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            Welcome to my digital playground. Exploring DevOps, SRE, and everything in between.
+        </p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="/blog" class="btn-neon">Read the Blog</a>
+            <a href="/stats" class="btn-neon btn-neon-cyan">View Stats</a>
+        </div>
+    </div>
+    
+    <div class="mb-12">
+        <h2 class="text-2xl font-heading text-synthwave-cyan glow-cyan mb-6">Latest Posts</h2>
+        
+        {% if posts %}
+        <div class="grid gap-6">
+            {% for post in posts %}
+            <a href="/blog/{{ post.slug }}" class="block bg-synthwave-card border border-synthwave-border rounded-lg p-6 card-glow neon-border">
+                <h3 class="text-xl font-heading text-synthwave-magenta mb-2">{{ post.title }}</h3>
+                <p class="text-gray-400 text-sm mb-3">{{ post.created_at.strftime('%B %d, %Y') }}</p>
+                <p class="text-gray-300 line-clamp-2">
+                    {{ post.content[:200] }}...
+                </p>
+                <span class="inline-block mt-4 text-synthwave-cyan text-sm font-bold">Read More →</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12 text-gray-500">
+            <p>No posts yet. Check back soon!</p>
+        </div>
+        {% endif %}
+        
+        {% if posts|length > 0 %}
+        <div class="text-center mt-8">
+            <a href="/blog" class="text-synthwave-cyan hover:text-synthwave-magenta">View All Posts →</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-6 text-center">
+            <div class="text-4xl mb-2">🚀</div>
+            <h3 class="text-lg font-heading text-synthwave-magenta mb-2">Automation</h3>
+            <p class="text-gray-400 text-sm">Making computers do the boring stuff so you don't have to.</p>
+        </div>
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-6 text-center">
+            <div class="text-4xl mb-2">📊</div>
+            <h3 class="text-lg font-heading text-synthwave-cyan mb-2">Observability</h3>
+            <p class="text-gray-400 text-sm">You can't fix what you can't see. Let's make it visible.</p>
+        </div>
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-6 text-center">
+            <div class="text-4xl mb-2">⚡</div>
+            <h3 class="text-lg font-heading text-synthwave-orange mb-2">Reliability</h3>
+            <p class="text-gray-400 text-sm">Building systems that don't break when things go wrong.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

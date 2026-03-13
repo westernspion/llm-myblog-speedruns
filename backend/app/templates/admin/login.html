@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - SRE Blog{% endblock %}
+
+{% block extra_head %}
+<style>
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="w-full max-w-md">
+    <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8 card-glow">
+        <h1 class="text-2xl font-heading text-synthwave-magenta glow-text text-center mb-8">Admin Login</h1>
+        
+        {% if error %}
+        <div class="bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded mb-6">
+            {{ error }}
+        </div>
+        {% endif %}
+        
+        <form method="post">
+            <div class="mb-6">
+                <label class="block text-gray-400 text-sm mb-2">Username</label>
+                <input type="text" name="username" class="w-full px-4 py-3 rounded" required>
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-400 text-sm mb-2">Password</label>
+                <input type="password" name="password" class="w-full px-4 py-3 rounded" required>
+            </div>
+            
+            <button type="submit" class="w-full btn-neon">Login</button>
+        </form>
+        
+        <div class="mt-6 text-center">
+            <a href="/" class="text-gray-500 hover:text-synthwave-cyan text-sm">← Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

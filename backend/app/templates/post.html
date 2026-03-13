@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - SRE Blog{% endblock %}
+
+{% block content %}
+<article class="max-w-4xl mx-auto px-4 py-12">
+    <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-heading font-black text-synthwave-magenta glow-text mb-4">
+            {{ post.title }}
+        </h1>
+        <p class="text-gray-400">
+            Published on {{ post.created_at.strftime('%B %d, %Y') }}
+            {% if post.updated_at and post.updated_at != post.created_at %}
+            (Updated: {{ post.updated_at.strftime('%B %d, %Y') }})
+            {% endif %}
+        </p>
+    </header>
+    
+    <div class="prose prose-invert max-w-none">
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8">
+            {{ post.content_html|safe }}
+        </div>
+    </div>
+    
+    <div class="mt-12 pt-8 border-t border-synthwave-border">
+        <a href="/blog" class="text-synthwave-cyan hover:text-synthwave-magenta">← Back to Blog</a>
+    </div>
+</article>
+{% endblock %}

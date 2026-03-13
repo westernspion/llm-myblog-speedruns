@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - SRE Blog{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-heading font-black text-synthwave-magenta glow-text mb-8">Blog Posts</h1>
+    
+    {% if posts %}
+    <div class="grid gap-6">
+        {% for post in posts %}
+        <a href="/blog/{{ post.slug }}" class="block bg-synthwave-card border border-synthwave-border rounded-lg p-6 card-glow neon-border">
+            <h2 class="text-2xl font-heading text-synthwave-magenta mb-2">{{ post.title }}</h2>
+            <p class="text-gray-400 text-sm mb-4">{{ post.created_at.strftime('%B %d, %Y') }}</p>
+            <p class="text-gray-300 line-clamp-3">
+                {{ post.content[:300] }}...
+            </p>
+            <span class="inline-block mt-4 text-synthwave-cyan text-sm font-bold">Read More →</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16">
+        <p class="text-gray-500 text-lg">No posts yet. Check back soon!</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

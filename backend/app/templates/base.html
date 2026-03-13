@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SRE Blog{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.10/htmx.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'synthwave': {
+                            'bg': '#0d0221',
+                            'card': '#1a0a2e',
+                            'border': '#2d1b4e',
+                            'magenta': '#ff00ff',
+                            'cyan': '#00ffff',
+                            'orange': '#ff6b00',
+                            'purple': '#9d00ff'
+                        }
+                    },
+                    fontFamily: {
+                        'heading': ['Orbitron', 'sans-serif'],
+                        'mono': ['Roboto Mono', 'monospace'],
+                        'code': ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --synthwave-bg: #0d0221;
+            --synthwave-magenta: #ff00ff;
+            --synthwave-cyan: #00ffff;
+            --synthwave-orange: #ff6b00;
+        }
+        
+        body {
+            background-color: var(--synthwave-bg);
+            color: #e0e0e0;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px var(--synthwave-magenta), 0 0 20px var(--synthwave-magenta), 0 0 40px var(--synthwave-magenta);
+        }
+        
+        .glow-cyan {
+            text-shadow: 0 0 10px var(--synthwave-cyan), 0 0 20px var(--synthwave-cyan);
+        }
+        
+        .glow-orange {
+            text-shadow: 0 0 10px var(--synthwave-orange), 0 0 20px var(--synthwave-orange);
+        }
+        
+        .card-glow {
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2), inset 0 0 15px rgba(255, 0, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .card-glow:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.4), inset 0 0 20px rgba(255, 0, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .neon-border {
+            border: 1px solid #2d1b4e;
+            position: relative;
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, var(--synthwave-magenta), var(--synthwave-cyan), var(--synthwave-orange));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .neon-border:hover::before {
+            opacity: 0.5;
+        }
+        
+        .neon-border:hover {
+            border-color: transparent;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .prose pre {
+            background: #1a0a2e !important;
+            border: 1px solid #2d1b4e;
+        }
+        
+        .prose code {
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .btn-neon {
+            background: linear-gradient(45deg, var(--synthwave-magenta), var(--synthwave-purple));
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+        
+        .btn-neon:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .btn-neon-cyan {
+            background: linear-gradient(45deg, var(--synthwave-cyan), #0099ff);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .btn-neon-cyan:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        }
+        
+        input, textarea, select {
+            background: #1a0a2e !important;
+            border: 1px solid #2d1b4e !important;
+            color: #e0e0e0 !important;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--synthwave-magenta) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3) !important;
+            outline: none !important;
+        }
+        
+        a {
+            color: var(--synthwave-cyan);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--synthwave-magenta);
+            text-shadow: 0 0 10px var(--synthwave-magenta);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--synthwave-magenta);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #2d1b4e;
+        }
+        
+        th {
+            color: var(--synthwave-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        
+        tr:hover {
+            background: rgba(255, 0, 255, 0.05);
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="border-b border-synthwave-border bg-synthwave-bg/90 backdrop-blur-sm sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4">
+            <nav class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-heading font-black text-synthwave-magenta glow-text">
+                    SRE<span class="text-synthwave-cyan">_</span>BLOG
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/blog" class="nav-link">Blog</a>
+                    <a href="/stats" class="nav-link">Stats</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer class="border-t border-synthwave-border mt-12 py-8">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="text-center md:text-left">
+                    <p class="text-synthwave-cyan font-heading text-sm">
+                        Visitors: <span class="text-synthwave-magenta glow-text">{{ total_visitors|default(0) }}</span>
+                    </p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 text-sm">
+                        Built with <span class="text-synthwave-orange">♥</span> for the SRE community
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>hljs.highlightAll();</script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

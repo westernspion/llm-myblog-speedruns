@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Site Statistics - SRE Blog{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-heading font-black text-synthwave-magenta glow-text mb-8">Site Statistics</h1>
+    
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8 text-center">
+            <div class="text-6xl mb-4">👥</div>
+            <h2 class="text-2xl font-heading text-synthwave-cyan mb-2">Total Visitors</h2>
+            <p class="text-5xl font-heading text-synthwave-magenta glow-text">{{ total_visitors|default(0) }}</p>
+        </div>
+        <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8 text-center">
+            <div class="text-6xl mb-4">📈</div>
+            <h2 class="text-2xl font-heading text-synthwave-cyan mb-2">Total Page Views</h2>
+            <p class="text-5xl font-heading text-synthwave-orange glow-orange">{{ total_page_views|default(0) }}</p>
+        </div>
+    </div>
+    
+    <div class="bg-synthwave-card border border-synthwave-border rounded-lg p-8">
+        <h2 class="text-xl font-heading text-synthwave-cyan mb-4">About These Stats</h2>
+        <p class="text-gray-300 mb-4">
+            This page shows the total number of unique visitors and page views for this blog. 
+            Each unique visitor is tracked using a session cookie.
+        </p>
+        <p class="text-gray-400 text-sm">
+            Want to see more detailed analytics? <a href="/admin" class="text-synthwave-magenta">Visit the admin panel</a>.
+        </p>
+    </div>
+</div>
+{% endblock %}
